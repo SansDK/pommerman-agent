@@ -6,7 +6,7 @@ namespace PommermanAgentDotNet.Services
     {
         public void Init();
 
-        public Action Action();
+        public Action Act(Item[][] board, int[] position);
 
         public void EpisodeEnd(int reward);
 
