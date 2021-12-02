@@ -3,7 +3,7 @@
     /// <summary>
     /// The Actions an agent can take
     /// </summary>
-    public enum Action
+    public enum AgentAction
     {
         Stop = 0,
         Up = 1,

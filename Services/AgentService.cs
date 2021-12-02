@@ -8,19 +8,19 @@ namespace PommermanAgentDotNet.Services
         {
         }
 
-        public Action Act(Item[][] board, int[] position)
+        public AgentAction Act(Item[][] board, int[] position)
         {
             if (IsPassable(ItemUp(board, position)))
-                return Action.Up;
+                return AgentAction.Up;
             else if (IsPassable(ItemRight(board, position)))
-                return Action.Right;
+                return AgentAction.Right;
             else if (IsPassable(ItemDown(board, position)))
-                return Action.Down;
+                return AgentAction.Down;
             else if (IsPassable(ItemLeft(board, position)))
-                return Action.Left;
+                return AgentAction.Left;
 
             // We're locked in!
-            return Action.Bomb;
+            return AgentAction.Bomb;
         }
 
         public void EpisodeEnd(int reward)
@@ -30,7 +30,7 @@ namespace PommermanAgentDotNet.Services
         public void Shutdown()
         {
         }
-        
+
         private static Item? ItemUp(Item[][] board, int[] position)
             => ItemAtOrNull(board, new int[] { position[0] - 1, position[1] });
 

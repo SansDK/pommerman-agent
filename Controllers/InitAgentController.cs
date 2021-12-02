@@ -16,7 +16,7 @@ namespace PommermanAgentDotNet.Controllers
         }
 
         [HttpPost]
-        public void Post(InitAgentRequestPayload initAgentPayload)
+        public void Post(InitAgentRequestPayload _)
         {
             _agentService.Init();
         }

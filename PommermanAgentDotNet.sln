@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PommermanAgentDotNet", "PommermanAgentDotNet\PommermanAgentDotNet.csproj", "{18429F36-418F-43B1-B371-37A20BC24EC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PommermanAgentDotNet", "PommermanAgentDotNet.csproj", "{9F9FA214-038C-4FC0-B32A-8B63125A6202}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{18429F36-418F-43B1-B371-37A20BC24EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18429F36-418F-43B1-B371-37A20BC24EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18429F36-418F-43B1-B371-37A20BC24EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18429F36-418F-43B1-B371-37A20BC24EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F9FA214-038C-4FC0-B32A-8B63125A6202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9FA214-038C-4FC0-B32A-8B63125A6202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9FA214-038C-4FC0-B32A-8B63125A6202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9FA214-038C-4FC0-B32A-8B63125A6202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {17540C62-8F64-44D8-8077-887AFCC91F52}
+		SolutionGuid = {1BCB553A-B814-4B50-A1E1-D3D2F6F82217}
 	EndGlobalSection
 EndGlobal

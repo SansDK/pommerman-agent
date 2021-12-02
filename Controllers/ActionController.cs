@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PommermanAgentDotNet.Models;
 using PommermanAgentDotNet.Services;
-using System.Text.Json;
 
 namespace PommermanAgentDotNet.Controllers
 {
@@ -17,23 +16,21 @@ namespace PommermanAgentDotNet.Controllers
         }
 
         [HttpPost]
-        public ActionResponsePayload Post(ActionRequestPayload actionRequestPayload)
+        public IActionResult Post(ActionRequestPayload actionRequestPayload)
         {
-            Observation observation = JsonSerializer.Deserialize<Observation>(
-                actionRequestPayload.Obs,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            if (actionRequestPayload?.Obs == null)
+            {
+                return BadRequest("Observation is null!");
+            }
             
             var result = _agentService.Act(
-                observation.Board,
-                observation.Position);
+                actionRequestPayload.Obs.Board,
+                actionRequestPayload.Obs.Position);
 
-            return new ActionResponsePayload
+            return Ok(new ActionResponsePayload
             {
                 Action = result
-            };
+            });
         }
     }
 }

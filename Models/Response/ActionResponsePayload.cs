@@ -2,6 +2,6 @@
 {
     public class ActionResponsePayload
     {
-        public Action Action { get; set; }
+        public AgentAction Action { get; set; }
     }
 }
