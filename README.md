@@ -20,3 +20,7 @@
 
 5. Start de webserver in de docker image
 `docker exec -i -w "/app" PommermanAgentDotNet sh -c "dotnet PommermanAgentDotNet.dll"`
+
+6. Run `docker port PommermanAgentDotNet` om te zien naar welke port hij gemapt is
+
+7. Ga naar http://localhost:JOUWPORT/swagger
