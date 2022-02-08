@@ -1,5 +1,4 @@
-Make sure the Docker agent runs within the docker container on port 5000!
-???
+Make sure the Docker agent runs within the docker container on port 80!
 
 Running without Docker:
 - Just click Run in Visual Studio
