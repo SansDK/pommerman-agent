@@ -40,9 +40,10 @@ namespace IO.Swagger.Controllers
         [SwaggerOperation("ActPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(ActResponse), description: "The action to take")]
         public virtual IActionResult ActPost([FromBody]ActRequest body)
-        { 
-            string exampleJson = null;
-            exampleJson = "{\"action\": 0}";
+        {
+            int action = new Random().Next(0, 5);
+
+            string exampleJson = "{\"action\": " + action + "}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<ActResponse>(exampleJson)
