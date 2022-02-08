@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  description: "API for an agent of the Bombersauce AI-hackathon."
+  version: "1.0.0"
+  title: "Bombersauce API"
+host: "localhost"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /ping:
+    get:
+      responses:
+        "200":
+          description: "Ok"
+  /init_agent:
+    post:
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Initialize body"
+        required: true
+        schema:
+          $ref: "#/definitions/init_agent_request"
+      responses:
+        "200":
+          description: "Ok"
+  /act:
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Game state"
+        required: true
+        schema:
+          $ref: "#/definitions/act_request"
+      responses:
+        "200":
+          description: "The action to take"
+          schema:
+            $ref: "#/definitions/act_response"
+  /episode_end:
+    post:
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Episode end body"
+        required: false
+        schema:
+          $ref: "#/definitions/episode_end_request"
+      responses:
+        "200":
+          description: "Ok"
+  /shutdown:
+    post:
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Shutdown body"
+        required: false
+        schema:
+          type: "object"
+      responses:
+        "200":
+          description: "Ok"
+definitions:
+  init_agent_request: 
+    type: object
+    properties: 
+      id: 
+        type: integer
+        format: int32
+        example: 3
+      game_type: 
+        type: integer
+        format: int32
+        example: 1
+  act_request: 
+    type: object
+    properties: 
+      obs: 
+        type: object
+        properties: 
+          alive: 
+            type: array
+            items: 
+              type: integer
+              format: int32
+              example: 10
+          board: 
+            type: array
+            items: 
+              type: array
+              items: 
+                type: integer
+                format: int32
+                example: 0
+          bomb_blast_strength: 
+            type: array
+            items: 
+              type: array
+              items: 
+                type: integer
+                format: int32
+                example: 0
+          bomb_life: 
+            type: array
+            items: 
+              type: array
+              items: 
+                type: integer
+                format: int32
+                example: 0
+          bomb_moving_direction: 
+            type: array
+            items: 
+              type: array
+              items: 
+                type: integer
+                format: int32
+                example: 0
+          flame_life: 
+            type: array
+            items: 
+              type: array
+              items: 
+                type: integer
+                format: int32
+                example: 0
+          game_type: 
+            type: integer
+            format: int32
+            example: 1
+          game_env: 
+            type: string
+            example: pommerman.envs.v0:Pomme
+          position: 
+            type: array
+            items: 
+              type: integer
+              format: int32
+              example: 1
+          blast_strength: 
+            type: integer
+            format: int32
+            example: 2
+          can_kick: 
+            type: boolean
+          teammate: 
+            type: integer
+            format: int32
+            example: 9
+          ammo: 
+            type: integer
+            format: int32
+            example: 1
+          enemies: 
+            type: array
+            items: 
+              type: integer
+              format: int32
+              example: 10
+          step_count: 
+            type: integer
+            format: int32
+            example: 0
+      action_space: 
+        type: integer
+        format: int32
+        example: 6
+  act_response: 
+    type: object
+    properties: 
+      action: 
+        type: integer
+        format: int32
+        example: 1
+  episode_end_request: 
+    type: object
+    properties: 
+      reward: 
+        type: integer
+        format: int32
+        example: 1
