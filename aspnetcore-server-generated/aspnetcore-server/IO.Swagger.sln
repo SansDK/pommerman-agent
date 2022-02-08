@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.32002.185
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IO.Swagger", "src\IO.Swagger\IO.Swagger.csproj", "{FDD61640-C1AF-4B37-9FD8-AC935DEAAC7A}"
 EndProject
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {34132D18-A98E-4818-9295-E955F95D7F10}
+		SolutionGuid = {CA1649F6-0A61-4762-9981-8D281380DA7E}
 	EndGlobalSection
 EndGlobal

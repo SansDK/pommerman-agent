@@ -35,7 +35,7 @@ namespace IO.Swagger.Controllers
         /// <param name="body">Game state</param>
         /// <response code="200">The action to take</response>
         [HttpPost]
-        [Route("//act")]
+        [Route("/act")]
         [ValidateModelState]
         [SwaggerOperation("ActPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(ActResponse), description: "The action to take")]
@@ -61,7 +61,7 @@ namespace IO.Swagger.Controllers
         /// <param name="body">Episode end body</param>
         /// <response code="200">Ok</response>
         [HttpPost]
-        [Route("//episode_end")]
+        [Route("/episode_end")]
         [ValidateModelState]
         [SwaggerOperation("EpisodeEndPost")]
         public virtual IActionResult EpisodeEndPost([FromBody]EpisodeEndRequest body)
@@ -80,7 +80,7 @@ namespace IO.Swagger.Controllers
         /// <param name="body">Initialize body</param>
         /// <response code="200">Ok</response>
         [HttpPost]
-        [Route("//init_agent")]
+        [Route("/init_agent")]
         [ValidateModelState]
         [SwaggerOperation("InitAgentPost")]
         public virtual IActionResult InitAgentPost([FromBody]InitAgentRequest body)
@@ -98,7 +98,7 @@ namespace IO.Swagger.Controllers
         
         /// <response code="200">Ok</response>
         [HttpGet]
-        [Route("//ping")]
+        [Route("/ping")]
         [ValidateModelState]
         [SwaggerOperation("PingGet")]
         public virtual IActionResult PingGet()
@@ -117,7 +117,7 @@ namespace IO.Swagger.Controllers
         /// <param name="body">Shutdown body</param>
         /// <response code="200">Ok</response>
         [HttpPost]
-        [Route("//shutdown")]
+        [Route("/shutdown")]
         [ValidateModelState]
         [SwaggerOperation("ShutdownPost")]
         public virtual IActionResult ShutdownPost([FromBody]Object body)
