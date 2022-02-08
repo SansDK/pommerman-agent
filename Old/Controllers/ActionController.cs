@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PommermanAgentDotNet.ModelBinders;
 using PommermanAgentDotNet.Models;
 using PommermanAgentDotNet.Services;
 
@@ -14,6 +15,12 @@ namespace PommermanAgentDotNet.Controllers
         {
             _agentService = agentService;
         }
+        /*
+        [HttpPost]
+        public IActionResult PostOther([ModelBinder(binderType: typeof(ObservationEntityBinder))] Observation obs)
+        {
+            return Ok();
+        }*/
 
         [HttpPost]
         public IActionResult Post(ActionRequestPayload actionRequestPayload)

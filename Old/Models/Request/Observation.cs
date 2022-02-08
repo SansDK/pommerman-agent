@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using PommermanAgentDotNet.ModelBinders;
+using System.ComponentModel.DataAnnotations;
 
 namespace PommermanAgentDotNet.Models
 {
+    [ModelBinder(BinderType = typeof(ObservationEntityBinder))]
     public class Observation
     {
         public int[] Alive { get; set; } = Array.Empty<int>();
