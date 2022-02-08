@@ -41,11 +41,8 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(ActResponse), description: "The action to take")]
         public virtual IActionResult ActPost([FromBody]ActRequest body)
         { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(ActResponse));
-
             string exampleJson = null;
-            exampleJson = "{\"empty\": false}";
+            exampleJson = "{\"action\": 0}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<ActResponse>(exampleJson)
@@ -65,12 +62,8 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("EpisodeEndPost")]
         public virtual IActionResult EpisodeEndPost([FromBody]EpisodeEndRequest body)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-
-            throw new NotImplementedException();
+        {
+            return Ok();
         }
 
         /// <summary>
@@ -84,12 +77,8 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("InitAgentPost")]
         public virtual IActionResult InitAgentPost([FromBody]InitAgentRequest body)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-
-            throw new NotImplementedException();
+        {
+            return Ok();
         }
 
         /// <summary>
@@ -102,12 +91,8 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("PingGet")]
         public virtual IActionResult PingGet()
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-
-            throw new NotImplementedException();
+        {
+            return Ok();
         }
 
         /// <summary>
@@ -121,12 +106,8 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("ShutdownPost")]
         public virtual IActionResult ShutdownPost([FromBody]Object body)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-
-
-            throw new NotImplementedException();
+        {
+            return Ok();
         }
     }
 }
