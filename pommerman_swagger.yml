@@ -26,7 +26,7 @@ paths:
       responses:
         "200":
           description: "Ok"
-  /act:
+  /action:
     post:
       consumes:
       - "application/json"
@@ -38,12 +38,12 @@ paths:
         description: "Game state"
         required: true
         schema:
-          $ref: "#/definitions/act_request"
+          $ref: "#/definitions/action_request"
       responses:
         "200":
           description: "The action to take"
           schema:
-            $ref: "#/definitions/act_response"
+            $ref: "#/definitions/action_response"
   /episode_end:
     post:
       consumes:
@@ -84,7 +84,7 @@ definitions:
         type: integer
         format: int32
         example: 1
-  act_request: 
+  action_request: 
     type: object
     properties: 
       obs: 
@@ -177,7 +177,7 @@ definitions:
         type: integer
         format: int32
         example: 6
-  act_response: 
+  action_response: 
     type: object
     properties: 
       action: 

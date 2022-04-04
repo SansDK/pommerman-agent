@@ -35,11 +35,11 @@ namespace IO.Swagger.Controllers
         /// <param name="body">Game state</param>
         /// <response code="200">The action to take</response>
         [HttpPost]
-        [Route("/act")]
+        [Route("/action")]
         [ValidateModelState]
         [SwaggerOperation("ActPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(ActResponse), description: "The action to take")]
-        public virtual IActionResult ActPost([FromBody]ActRequest body)
+        public virtual IActionResult ActionPost([FromBody]ActRequest body)
         {
             int action = new Random().Next(0, 5);
 

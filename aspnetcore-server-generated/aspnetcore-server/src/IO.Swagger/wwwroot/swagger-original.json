@@ -38,7 +38,7 @@
         }
       }
     },
-    "/act" : {
+    "/action" : {
       "post" : {
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
@@ -48,14 +48,14 @@
           "description" : "Game state",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/act_request"
+            "$ref" : "#/definitions/action_request"
           }
         } ],
         "responses" : {
           "200" : {
             "description" : "The action to take",
             "schema" : {
-              "$ref" : "#/definitions/act_response"
+              "$ref" : "#/definitions/action_response"
             }
           }
         }
@@ -116,7 +116,7 @@
         }
       }
     },
-    "act_request" : {
+    "action_request" : {
       "type" : "object",
       "properties" : {
         "obs" : {
@@ -242,7 +242,7 @@
         }
       }
     },
-    "act_response" : {
+    "action_response" : {
       "type" : "object",
       "properties" : {
         "action" : {
