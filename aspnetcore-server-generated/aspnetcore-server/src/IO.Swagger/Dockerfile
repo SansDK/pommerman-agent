@@ -15,4 +15,5 @@ RUN dotnet publish -c Debug -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "IO.Swagger.dll"]
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
+ENTRYPOINT ["dotnet", "IO.Swagger.dll", "--urls=http://0.0.0.0:5000/"]
