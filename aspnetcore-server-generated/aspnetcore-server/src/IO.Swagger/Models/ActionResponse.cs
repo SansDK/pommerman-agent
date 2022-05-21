@@ -72,7 +72,7 @@ namespace IO.Swagger.Models
         /// <value>Action to take:  * &#x60;0&#x60; - Stop  * &#x60;1&#x60; - Up  * &#x60;2&#x60; - Down  * &#x60;3&#x60; - Left  * &#x60;4&#x60; - Right  * &#x60;5&#x60; - Bomb </value>
         [Required]
         [DataMember(Name = "action")]
-        public ActionEnum? Action { get; set; }
+        public ActionEnum Action { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -121,7 +121,6 @@ namespace IO.Swagger.Models
             return
                 (
                     Action == other.Action ||
-                    Action != null &&
                     Action.Equals(other.Action)
                 );
         }
@@ -136,9 +135,7 @@ namespace IO.Swagger.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                if (Action != null)
-                    hashCode = hashCode * 59 + Action.GetHashCode();
-                return hashCode;
+                return hashCode * 59 + Action.GetHashCode();
             }
         }
 

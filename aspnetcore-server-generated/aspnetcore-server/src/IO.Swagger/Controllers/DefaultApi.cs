@@ -11,9 +11,9 @@
 using IO.Swagger.Attributes;
 using IO.Swagger.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using static IO.Swagger.Models.ActionResponse;
 
 namespace IO.Swagger.Controllers
 {
@@ -36,15 +36,15 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(ActionResponse), description: "The action to take")]
         public virtual IActionResult ActionPost([FromBody] ActionRequest state)
         {
-            int action = new Random().Next(0, 5);
+            var options = Enum.GetValues<ActionEnum>();
+            var action = (ActionEnum)options.GetValue(new Random().Next(options.Length));
 
-            string exampleJson = "{\"action\": " + action + "}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<ActionResponse>(exampleJson)
-            : default;
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            var result = new ActionResponse()
+            {
+                Action = action
+            };
+            
+            return new ObjectResult(result);
         }
 
         /// <summary>
