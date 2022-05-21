@@ -34,7 +34,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "body"
+        name: "state"
         description: "Game state"
         required: true
         schema:
@@ -79,12 +79,9 @@ definitions:
       id: 
         type: integer
         format: int32
-        example: 3
-      game_type: 
-        type: integer
-        format: int32
-        example: 1
-  action_request: 
+      game_type:
+        $ref: "#/definitions/game_type"
+  action_request:
     type: object
     properties: 
       obs: 
@@ -95,66 +92,180 @@ definitions:
             items: 
               type: integer
               format: int32
-              example: 10
+              enum: [10, 11, 12, 13]
+            example: [10, 11, 12, 13]
+            minItems: 0
+            maxItems: 4
+            description: "This array contains the ids of all alive players."
           board: 
             type: array
+            minItems: 11
+            maxItems: 11
             items: 
               type: array
+              minItems: 11
+              maxItems: 11
               items: 
                 type: integer
                 format: int32
-                example: 0
+                enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 20]
+                description: >
+                  Item:
+                   * `0` - Passage, meaning you can pass through
+                   * `1` - Rigid, meaning you can't pass through
+                   * `2` - Wood, which can be removed by explosions
+                   * `3` - Bomb
+                   * `4` - Flames from an exploded bomb
+                   * `5` - Fog
+                   * `6` - ExtraBomb powerup, which increases your ammo by 1
+                   * `7` - IncrRange powerup, which increases your blast strength by 1
+                   * `8` - Kick powerup, which allows you to kick bombs
+                   * `9` - AgentDummy
+                   * `10` - Agent 0
+                   * `11` - Agent 1
+                   * `12` - Agent 2
+                   * `13` - Agent 3
+                   * `14` - Title
+                   * `20` - Background
+            example: [[ 0,  0,  2,  1,  1,  0,  1,  1,  2,  2,  2],
+                      [ 0, 10,  0,  0,  2,  2,  2,  0,  0, 13,  2],
+                      [ 2,  0,  0,  1,  2,  2,  2,  2,  0,  0,  1],
+                      [ 1,  0,  1,  0,  0,  0,  0,  1,  1,  0,  1],
+                      [ 1,  2,  2,  0,  0,  1,  1,  1,  1,  2,  1],
+                      [ 0,  2,  2,  0,  1,  0,  1,  0,  0,  2,  1],
+                      [ 1,  2,  2,  0,  1,  1,  0,  1,  2,  2,  1],
+                      [ 1,  0,  2,  1,  1,  0,  1,  0,  0,  0,  2],
+                      [ 2,  0,  0,  1,  1,  0,  2,  0,  0,  0,  2],
+                      [ 2, 11,  0,  0,  2,  2,  2,  0,  0, 12,  0],
+                      [ 2,  2,  1,  1,  1,  1,  1,  2,  2,  0,  0]]
+            description: "The playing board. The first row in this list is the top of the board, and so on."
           bomb_blast_strength: 
             type: array
+            minItems: 11
+            maxItems: 11
             items: 
               type: array
+              minItems: 11
+              maxItems: 11
               items: 
-                type: integer
-                format: int32
-                example: 0
+                type: number
+                format: float
+                example: 0.0
+            example: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+            description: "The blast strength of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0."
           bomb_life: 
             type: array
+            minItems: 11
+            maxItems: 11
             items: 
               type: array
+              minItems: 11
+              maxItems: 11
               items: 
-                type: integer
-                format: int32
-                example: 0
+                type: number
+                format: float
+                example: 0.0
+            example: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+            description: "The remaining time of each bomb on the playing board before it explodes. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0."
           bomb_moving_direction: 
             type: array
+            minItems: 11
+            maxItems: 11
             items: 
               type: array
+              minItems: 11
+              maxItems: 11
               items: 
-                type: integer
-                format: int32
-                example: 0
+                type: number
+                format: float
+                example: 0.0
+                description: >
+                  Direction:
+                   * `0` - Not moving
+                   * `1` - Up
+                   * `2` - Down
+                   * `3` - Left
+                   * `4` - Right
+            example: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+            description: "The movement direction of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0."
           flame_life: 
             type: array
+            minItems: 11
+            maxItems: 11
             items: 
               type: array
+              minItems: 11
+              maxItems: 11
               items: 
-                type: integer
-                format: int32
-                example: 0
+                type: number
+                format: float
+                example: 0.0
+            example: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+            description: "The remaining time of each flame on the playing board before it disappears. The first row in this list is the top of the board, and so on. If a tile does not contain a flame, its value will be 0."
           game_type: 
-            type: integer
-            format: int32
-            example: 1
+            $ref: "#/definitions/game_type"
           game_env: 
             type: string
-            example: pommerman.envs.v0:Pomme
+            example: "pommerman.envs.v0:Pomme"
           position: 
             type: array
+            minItems: 2
+            maxItems: 2
             items: 
               type: integer
               format: int32
-              example: 1
+              minimum: 0
+              maximum: 10
+            example: [1, 9]
+            description: "The `[x, y]` position of your agent on the board. The bottom left cell has `x = 0` and `y = 0`."
           blast_strength: 
             type: integer
             format: int32
             example: 2
+            description: "The blast strength of your agent's bombs."
           can_kick: 
             type: boolean
+            description: "Whether your agent can kick bombs. You can gain this ability by collecting the Kick powerup."
           teammate: 
             type: integer
             format: int32
@@ -163,12 +274,14 @@ definitions:
             type: integer
             format: int32
             example: 1
+            description: "The number of bombs your agent can place."
           enemies: 
             type: array
             items: 
               type: integer
               format: int32
-              example: 10
+            example: [11, 12, 13]
+            description: "The ids of your enemies."
           step_count: 
             type: integer
             format: int32
@@ -183,11 +296,36 @@ definitions:
       action: 
         type: integer
         format: int32
-        example: 1
+        enum: [0, 1, 2, 3, 4, 5]
+        description: >
+          Action to take:
+           * `0` - Stop
+           * `1` - Up
+           * `2` - Down
+           * `3` - Left
+           * `4` - Right
+           * `5` - Bomb
   episode_end_request: 
     type: object
     properties: 
       reward: 
         type: integer
         format: int32
-        example: 1
+        enum: [0, 1, 2, 3]
+        description: >
+          Result of the game:
+           * `0` - Win
+           * `1` - Loss
+           * `2` - Tie
+           * `3` - Incomplete
+  game_type:
+    type: integer
+    format: int32
+    enum: [1, 2, 3, 4]
+    example: 1
+    description: >
+      Game type:
+       * `1` - FFA
+       * `2` - Team
+       * `3` - TeamRadio
+       * `4` - OneVsOne
