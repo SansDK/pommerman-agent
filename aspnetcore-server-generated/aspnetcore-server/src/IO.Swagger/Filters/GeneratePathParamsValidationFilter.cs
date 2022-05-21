@@ -1,9 +1,8 @@
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.OpenApi.Models;
 
 namespace IO.Swagger.Filters
 {
@@ -27,7 +26,7 @@ namespace IO.Swagger.Filters
 
                 var attributes = ((ControllerParameterDescriptor)par.ParameterDescriptor).ParameterInfo.CustomAttributes;
 
-                if (attributes != null && attributes.Count() > 0 && swaggerParam != null)
+                if (attributes != null && attributes.Any() && swaggerParam != null)
                 {
                     // Required - [Required]
                     var requiredAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(RequiredAttribute));
@@ -41,9 +40,9 @@ namespace IO.Swagger.Filters
                     if (regexAttr != null)
                     {
                         string regex = (string)regexAttr.ConstructorArguments[0].Value;
-                        if (swaggerParam is OpenApiParameter)
+                        if (swaggerParam is not null)
                         {
-                            ((OpenApiParameter)swaggerParam).Schema.Pattern = regex;
+                            swaggerParam.Schema.Pattern = regex;
                         }
                     }
 
@@ -71,10 +70,10 @@ namespace IO.Swagger.Filters
                         maxLength = (int)maxLengthAttr.ConstructorArguments[0].Value;
                     }
 
-                    if (swaggerParam is OpenApiParameter)
+                    if (swaggerParam is not null)
                     {
-                        ((OpenApiParameter)swaggerParam).Schema.MinLength = minLenght;
-                        ((OpenApiParameter)swaggerParam).Schema.MaxLength = maxLength;
+                        swaggerParam.Schema.MinLength = minLenght;
+                        swaggerParam.Schema.MaxLength = maxLength;
                     }
 
                     // Range [Range]
@@ -84,10 +83,10 @@ namespace IO.Swagger.Filters
                         int rangeMin = (int)rangeAttr.ConstructorArguments[0].Value;
                         int rangeMax = (int)rangeAttr.ConstructorArguments[1].Value;
 
-                        if (swaggerParam is OpenApiParameter)
+                        if (swaggerParam is not null)
                         {
-                            ((OpenApiParameter)swaggerParam).Schema.Minimum = rangeMin;
-                            ((OpenApiParameter)swaggerParam).Schema.Maximum = rangeMax;
+                            swaggerParam.Schema.Minimum = rangeMin;
+                            swaggerParam.Schema.Maximum = rangeMax;
                         }
                     }
                 }
@@ -95,4 +94,3 @@ namespace IO.Swagger.Filters
         }
     }
 }
-
