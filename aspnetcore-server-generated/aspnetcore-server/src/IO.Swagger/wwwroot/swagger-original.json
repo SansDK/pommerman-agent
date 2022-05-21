@@ -1,318 +1,390 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "API for an agent of the Bombersauce AI-hackathon.",
-    "version" : "1.0.0",
-    "title" : "Bombersauce API"
+  "swagger": "2.0",
+  "info": {
+    "description": "API for an agent of the Bombersauce AI-hackathon.",
+    "version": "1.0.0",
+    "title": "Bombersauce API"
   },
-  "host" : "localhost",
-  "schemes" : [ "http" ],
-  "paths" : {
-    "/ping" : {
-      "get" : {
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Ok"
+  "host": "localhost",
+  "schemes": [ "http" ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok"
           }
         }
       }
     },
-    "/init_agent" : {
-      "post" : {
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Initialize body",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/init_agent_request"
+    "/init_agent": {
+      "post": {
+        "consumes": [ "application/json" ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Initialize body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/init_agent_request"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Ok"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
           }
         }
       }
     },
-    "/action" : {
-      "post" : {
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "state",
-          "description" : "Game state",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/action_request"
+    "/action": {
+      "post": {
+        "consumes": [ "application/json" ],
+        "produces": [ "application/json" ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "state",
+            "description": "Game state",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/action_request"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The action to take",
-            "schema" : {
-              "$ref" : "#/definitions/action_response"
+        ],
+        "responses": {
+          "200": {
+            "description": "The action to take",
+            "schema": {
+              "$ref": "#/definitions/action_response"
             }
           }
         }
       }
     },
-    "/episode_end" : {
-      "post" : {
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Episode end body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/episode_end_request"
+    "/episode_end": {
+      "post": {
+        "consumes": [ "application/json" ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Episode end body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/episode_end_request"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Ok"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
           }
         }
       }
     },
-    "/shutdown" : {
-      "post" : {
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Shutdown body",
-          "required" : false,
-          "schema" : {
-            "type" : "object"
+    "/shutdown": {
+      "post": {
+        "consumes": [ "application/json" ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Shutdown body",
+            "required": false,
+            "schema": {
+              "type": "object"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Ok"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
           }
         }
       }
     }
   },
-  "definitions" : {
-    "init_agent_request" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int32"
+  "definitions": {
+    "init_agent_request": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
         },
-        "game_type" : {
-          "$ref" : "#/definitions/game_type"
+        "game_type": {
+          "$ref": "#/definitions/game_type"
         }
       }
     },
-    "action_request" : {
-      "type" : "object",
-      "properties" : {
-        "obs" : {
-          "type" : "object",
-          "properties" : {
-            "alive" : {
-              "type" : "array",
-              "example" : [ 10, 11, 12, 13 ],
-              "description" : "This array contains the ids of all alive players.",
-              "items" : {
-                "type" : "integer",
-                "format" : "int32",
-                "enum" : [ 10, 11, 12, 13 ]
+    "action_request": {
+      "type": "object",
+      "required": [ "obs" ],
+      "properties": {
+        "obs": {
+          "type": "object",
+          "properties": {
+            "alive": {
+              "type": "array",
+              "example": [ 10, 11, 12, 13 ],
+              "description": "This array contains the ids of all alive players.",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "enum": [ 10, 11, 12, 13 ]
               },
-              "maxItems" : 4,
-              "minItems" : 0
+              "maxItems": 4,
+              "minItems": 0
             },
-            "board" : {
-              "type" : "array",
-              "example" : [ [ 0, 0, 2, 1, 1, 0, 1, 1, 2, 2, 2 ], [ 0, 10, 0, 0, 2, 2, 2, 0, 0, 13, 2 ], [ 2, 0, 0, 1, 2, 2, 2, 2, 0, 0, 1 ], [ 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1 ], [ 1, 2, 2, 0, 0, 1, 1, 1, 1, 2, 1 ], [ 0, 2, 2, 0, 1, 0, 1, 0, 0, 2, 1 ], [ 1, 2, 2, 0, 1, 1, 0, 1, 2, 2, 1 ], [ 1, 0, 2, 1, 1, 0, 1, 0, 0, 0, 2 ], [ 2, 0, 0, 1, 1, 0, 2, 0, 0, 0, 2 ], [ 2, 11, 0, 0, 2, 2, 2, 0, 0, 12, 0 ], [ 2, 2, 1, 1, 1, 1, 1, 2, 2, 0, 0 ] ],
-              "description" : "The playing board. The first row in this list is the top of the board, and so on.",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "integer",
-                  "format" : "int32",
-                  "description" : "Item:\n * `0` - Passage, meaning you can pass through\n * `1` - Rigid, meaning you can't pass through\n * `2` - Wood, which can be removed by explosions\n * `3` - Bomb\n * `4` - Flames from an exploded bomb\n * `5` - Fog\n * `6` - ExtraBomb powerup, which increases your ammo by 1\n * `7` - IncrRange powerup, which increases your blast strength by 1\n * `8` - Kick powerup, which allows you to kick bombs\n * `9` - AgentDummy\n * `10` - Agent 0\n * `11` - Agent 1\n * `12` - Agent 2\n * `13` - Agent 3\n * `14` - Title\n * `20` - Background\n",
-                  "enum" : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 20 ]
+            "board": {
+              "type": "array",
+              "example": [
+                [ 0, 0, 2, 1, 1, 0, 1, 1, 2, 2, 2 ],
+                [ 0, 10, 0, 0, 2, 2, 2, 0, 0, 13, 2 ],
+                [ 2, 0, 0, 1, 2, 2, 2, 2, 0, 0, 1 ],
+                [ 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1 ],
+                [ 1, 2, 2, 0, 0, 1, 1, 1, 1, 2, 1 ],
+                [ 0, 2, 2, 0, 1, 0, 1, 0, 0, 2, 1 ],
+                [ 1, 2, 2, 0, 1, 1, 0, 1, 2, 2, 1 ],
+                [ 1, 0, 2, 1, 1, 0, 1, 0, 0, 0, 2 ],
+                [ 2, 0, 0, 1, 1, 0, 2, 0, 0, 0, 2 ],
+                [ 2, 11, 0, 0, 2, 2, 2, 0, 0, 12, 0 ],
+                [ 2, 2, 1, 1, 1, 1, 1, 2, 2, 0, 0 ]
+              ],
+              "description": "The playing board. The first row in this list is the top of the board, and so on.",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Item:\n * `0` - Passage, meaning you can pass through\n * `1` - Rigid, meaning you can't pass through\n * `2` - Wood, which can be removed by explosions\n * `3` - Bomb\n * `4` - Flames from an exploded bomb\n * `5` - Fog\n * `6` - ExtraBomb powerup, which increases your ammo by 1\n * `7` - IncrRange powerup, which increases your blast strength by 1\n * `8` - Kick powerup, which allows you to kick bombs\n * `9` - AgentDummy\n * `10` - Agent 0\n * `11` - Agent 1\n * `12` - Agent 2\n * `13` - Agent 3\n * `14` - Title\n * `20` - Background\n",
+                  "enum": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 20 ]
                 },
-                "maxItems" : 11,
-                "minItems" : 11
+                "maxItems": 11,
+                "minItems": 11
               },
-              "maxItems" : 11,
-              "minItems" : 11
+              "maxItems": 11,
+              "minItems": 11
             },
-            "bomb_blast_strength" : {
-              "type" : "array",
-              "example" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
-              "description" : "The blast strength of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "number",
-                  "format" : "float",
-                  "example" : 0.0
+            "bomb_blast_strength": {
+              "type": "array",
+              "example": [
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+              ],
+              "description": "The blast strength of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 0.0
                 },
-                "maxItems" : 11,
-                "minItems" : 11
+                "maxItems": 11,
+                "minItems": 11
               },
-              "maxItems" : 11,
-              "minItems" : 11
+              "maxItems": 11,
+              "minItems": 11
             },
-            "bomb_life" : {
-              "type" : "array",
-              "example" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
-              "description" : "The remaining time of each bomb on the playing board before it explodes. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "number",
-                  "format" : "float",
-                  "example" : 0.0
+            "bomb_life": {
+              "type": "array",
+              "example": [
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+              ],
+              "description": "The remaining time of each bomb on the playing board before it explodes. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 0.0
                 },
-                "maxItems" : 11,
-                "minItems" : 11
+                "maxItems": 11,
+                "minItems": 11
               },
-              "maxItems" : 11,
-              "minItems" : 11
+              "maxItems": 11,
+              "minItems": 11
             },
-            "bomb_moving_direction" : {
-              "type" : "array",
-              "example" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
-              "description" : "The movement direction of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "number",
-                  "format" : "float",
-                  "example" : 0.0,
-                  "description" : "Direction:\n * `0` - Not moving\n * `1` - Up\n * `2` - Down\n * `3` - Left\n * `4` - Right\n"
+            "bomb_moving_direction": {
+              "type": "array",
+              "example": [
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+              ],
+              "description": "The movement direction of each bomb on the playing board. The first row in this list is the top of the board, and so on. If a tile does not contain a bomb, its value will be 0.",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 0.0,
+                  "description": "Direction:\n * `0` - Not moving\n * `1` - Up\n * `2` - Down\n * `3` - Left\n * `4` - Right\n"
                 },
-                "maxItems" : 11,
-                "minItems" : 11
+                "maxItems": 11,
+                "minItems": 11
               },
-              "maxItems" : 11,
-              "minItems" : 11
+              "maxItems": 11,
+              "minItems": 11
             },
-            "flame_life" : {
-              "type" : "array",
-              "example" : [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
-              "description" : "The remaining time of each flame on the playing board before it disappears. The first row in this list is the top of the board, and so on. If a tile does not contain a flame, its value will be 0.",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "number",
-                  "format" : "float",
-                  "example" : 0.0
+            "flame_life": {
+              "type": "array",
+              "example": [
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+                [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+              ],
+              "description": "The remaining time of each flame on the playing board before it disappears. The first row in this list is the top of the board, and so on. If a tile does not contain a flame, its value will be 0.",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 0.0
                 },
-                "maxItems" : 11,
-                "minItems" : 11
+                "maxItems": 11,
+                "minItems": 11
               },
-              "maxItems" : 11,
-              "minItems" : 11
+              "maxItems": 11,
+              "minItems": 11
             },
-            "game_type" : {
-              "$ref" : "#/definitions/game_type"
+            "game_type": {
+              "$ref": "#/definitions/game_type"
             },
-            "game_env" : {
-              "type" : "string",
-              "example" : "pommerman.envs.v0:Pomme"
+            "game_env": {
+              "type": "string",
+              "example": "pommerman.envs.v0:Pomme"
             },
-            "position" : {
-              "type" : "array",
-              "example" : [ 1, 9 ],
-              "description" : "The `[x, y]` position of your agent on the board. The bottom left cell has `x = 0` and `y = 0`.",
-              "items" : {
-                "type" : "integer",
-                "format" : "int32",
-                "minimum" : 0,
-                "maximum" : 10
+            "position": {
+              "type": "array",
+              "example": [ 1, 9 ],
+              "description": "The `[x, y]` position of your agent on the board. The bottom left cell has `x = 0` and `y = 0`.",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "maximum": 10
               },
-              "maxItems" : 2,
-              "minItems" : 2
+              "maxItems": 2,
+              "minItems": 2
             },
-            "blast_strength" : {
-              "type" : "integer",
-              "format" : "int32",
-              "example" : 2,
-              "description" : "The blast strength of your agent's bombs."
+            "blast_strength": {
+              "type": "integer",
+              "format": "int32",
+              "example": 2,
+              "description": "The blast strength of your agent's bombs."
             },
-            "can_kick" : {
-              "type" : "boolean",
-              "description" : "Whether your agent can kick bombs. You can gain this ability by collecting the Kick powerup."
+            "can_kick": {
+              "type": "boolean",
+              "description": "Whether your agent can kick bombs. You can gain this ability by collecting the Kick powerup."
             },
-            "teammate" : {
-              "type" : "integer",
-              "format" : "int32",
-              "example" : 9
+            "teammate": {
+              "type": "integer",
+              "format": "int32",
+              "example": 9
             },
-            "ammo" : {
-              "type" : "integer",
-              "format" : "int32",
-              "example" : 1,
-              "description" : "The number of bombs your agent can place."
+            "ammo": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1,
+              "description": "The number of bombs your agent can place."
             },
-            "enemies" : {
-              "type" : "array",
-              "example" : [ 11, 12, 13 ],
-              "description" : "The ids of your enemies.",
-              "items" : {
-                "type" : "integer",
-                "format" : "int32"
+            "enemies": {
+              "type": "array",
+              "example": [ 11, 12, 13 ],
+              "description": "The ids of your enemies.",
+              "items": {
+                "type": "integer",
+                "format": "int32"
               }
             },
-            "step_count" : {
-              "type" : "integer",
-              "format" : "int32",
-              "example" : 0
+            "step_count": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
             }
-          }
+          },
+          "required": [ "alive", "ammo", "blast_strength", "board", "bomb_blast_strength", "bomb_life", "bomb_moving_direction", "can_kick", "enemies", "flame_life", "position", "step_count" ]
         },
-        "action_space" : {
-          "type" : "integer",
-          "format" : "int32",
-          "example" : 6
+        "action_space": {
+          "type": "integer",
+          "format": "int32",
+          "example": 6
         }
       }
     },
-    "action_response" : {
-      "type" : "object",
-      "properties" : {
-        "action" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Action to take:\n * `0` - Stop\n * `1` - Up\n * `2` - Down\n * `3` - Left\n * `4` - Right\n * `5` - Bomb\n",
-          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+    "action_response": {
+      "type": "object",
+      "required": [ "action" ],
+      "properties": {
+        "action": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Action to take:\n * `0` - Stop\n * `1` - Up\n * `2` - Down\n * `3` - Left\n * `4` - Right\n * `5` - Bomb\n",
+          "enum": [ 0, 1, 2, 3, 4, 5 ]
         }
       },
-      "example" : {
-        "action" : 0
+      "example": {
+        "action": 0
       }
     },
-    "episode_end_request" : {
-      "type" : "object",
-      "properties" : {
-        "reward" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Result of the game:\n * `0` - Win\n * `1` - Loss\n * `2` - Tie\n * `3` - Incomplete\n",
-          "enum" : [ 0, 1, 2, 3 ]
+    "episode_end_request": {
+      "type": "object",
+      "required": [ "reward" ],
+      "properties": {
+        "reward": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Result of the game:\n * `0` - Win\n * `1` - Loss\n * `2` - Tie\n * `3` - Incomplete\n",
+          "enum": [ 0, 1, 2, 3 ]
         }
       }
     },
-    "game_type" : {
-      "type" : "integer",
-      "format" : "int32",
-      "description" : "Game type:\n * `1` - FFA\n * `2` - Team\n * `3` - TeamRadio\n * `4` - OneVsOne\n",
-      "example" : 1,
-      "enum" : [ "1", "2", "3", "4" ],
-      "x-enum-string" : true
+    "game_type": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Game type:\n * `1` - FFA\n * `2` - Team\n * `3` - TeamRadio\n * `4` - OneVsOne\n",
+      "example": 1,
+      "enum": [ "1", "2", "3", "4" ],
+      "x-enum-string": true
     }
   }
 }

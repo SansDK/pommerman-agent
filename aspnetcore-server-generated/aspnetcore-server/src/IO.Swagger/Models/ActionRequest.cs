@@ -26,10 +26,11 @@ namespace IO.Swagger.Models
     /// </summary>
     [DataContract]
     public partial class ActionRequest : IEquatable<ActionRequest>
-    { 
+    {
         /// <summary>
         /// Gets or Sets Obs
         /// </summary>
+        [Required]
 
         [DataMember(Name="obs")]
         public Object Obs { get; set; }

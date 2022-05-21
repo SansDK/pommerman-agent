@@ -64,6 +64,7 @@ namespace IO.Swagger.Models
         /// Result of the game:  * &#x60;0&#x60; - Win  * &#x60;1&#x60; - Loss  * &#x60;2&#x60; - Tie  * &#x60;3&#x60; - Incomplete 
         /// </summary>
         /// <value>Result of the game:  * &#x60;0&#x60; - Win  * &#x60;1&#x60; - Loss  * &#x60;2&#x60; - Tie  * &#x60;3&#x60; - Incomplete </value>
+        [Required]
 
         [DataMember(Name="reward")]
         public RewardEnum? Reward { get; set; }

@@ -26,12 +26,12 @@ namespace IO.Swagger.Models
     /// </summary>
     [DataContract]
     public partial class ActionResponse : IEquatable<ActionResponse>
-    { 
+    {
         /// <summary>
         /// Action to take:  * `0` - Stop  * `1` - Up  * `2` - Down  * `3` - Left  * `4` - Right  * `5` - Bomb 
         /// </summary>
         /// <value>Action to take:  * `0` - Stop  * `1` - Up  * `2` - Down  * `3` - Left  * `4` - Right  * `5` - Bomb </value>
-        
+
         public enum ActionEnum
         {
             
@@ -76,6 +76,7 @@ namespace IO.Swagger.Models
         /// Action to take:  * &#x60;0&#x60; - Stop  * &#x60;1&#x60; - Up  * &#x60;2&#x60; - Down  * &#x60;3&#x60; - Left  * &#x60;4&#x60; - Right  * &#x60;5&#x60; - Bomb 
         /// </summary>
         /// <value>Action to take:  * &#x60;0&#x60; - Stop  * &#x60;1&#x60; - Up  * &#x60;2&#x60; - Down  * &#x60;3&#x60; - Left  * &#x60;4&#x60; - Right  * &#x60;5&#x60; - Bomb </value>
+        [Required]
 
         [DataMember(Name="action")]
         public ActionEnum? Action { get; set; }
