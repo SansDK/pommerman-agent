@@ -28,11 +28,45 @@ namespace IO.Swagger.Models
     public partial class EpisodeEndRequest : IEquatable<EpisodeEndRequest>
     { 
         /// <summary>
-        /// Gets or Sets Reward
+        /// Result of the game:  * `0` - Win  * `1` - Loss  * `2` - Tie  * `3` - Incomplete 
         /// </summary>
+        /// <value>Result of the game:  * `0` - Win  * `1` - Loss  * `2` - Tie  * `3` - Incomplete </value>
+        
+        public enum RewardEnum
+        {
+            
+            /// <summary>
+            /// Enum _0Enum for 0
+            /// </summary>
+            
+            _0Enum = 0,
+            
+            /// <summary>
+            /// Enum _1Enum for 1
+            /// </summary>
+            
+            _1Enum = 1,
+            
+            /// <summary>
+            /// Enum _2Enum for 2
+            /// </summary>
+            
+            _2Enum = 2,
+            
+            /// <summary>
+            /// Enum _3Enum for 3
+            /// </summary>
+            
+            _3Enum = 3
+        }
+
+        /// <summary>
+        /// Result of the game:  * &#x60;0&#x60; - Win  * &#x60;1&#x60; - Loss  * &#x60;2&#x60; - Tie  * &#x60;3&#x60; - Incomplete 
+        /// </summary>
+        /// <value>Result of the game:  * &#x60;0&#x60; - Win  * &#x60;1&#x60; - Loss  * &#x60;2&#x60; - Tie  * &#x60;3&#x60; - Incomplete </value>
 
         [DataMember(Name="reward")]
-        public int? Reward { get; set; }
+        public RewardEnum? Reward { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

@@ -32,22 +32,22 @@ namespace IO.Swagger.Controllers
         /// 
         /// </summary>
         
-        /// <param name="body">Game state</param>
+        /// <param name="state">Game state</param>
         /// <response code="200">The action to take</response>
         [HttpPost]
         [Route("/action")]
         [ValidateModelState]
-        [SwaggerOperation("ActPost")]
-        [SwaggerResponse(statusCode: 200, type: typeof(ActResponse), description: "The action to take")]
-        public virtual IActionResult ActionPost([FromBody]ActRequest body)
+        [SwaggerOperation("ActionPost")]
+        [SwaggerResponse(statusCode: 200, type: typeof(ActionResponse), description: "The action to take")]
+        public virtual IActionResult ActionPost([FromBody]ActionRequest state)
         {
             int action = new Random().Next(0, 5);
 
             string exampleJson = "{\"action\": " + action + "}";
-            
+
             var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<ActResponse>(exampleJson)
-            : default(ActResponse);
+            ? JsonConvert.DeserializeObject<ActionResponse>(exampleJson)
+            : default(ActionResponse);
             //TODO: Change the data returned
             return new ObjectResult(example);
         }
@@ -63,7 +63,7 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("EpisodeEndPost")]
         public virtual IActionResult EpisodeEndPost([FromBody]EpisodeEndRequest body)
-        {
+        { 
             return Ok();
         }
 
@@ -78,7 +78,7 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("InitAgentPost")]
         public virtual IActionResult InitAgentPost([FromBody]InitAgentRequest body)
-        {
+        { 
             return Ok();
         }
 
@@ -99,7 +99,7 @@ namespace IO.Swagger.Controllers
         /// <summary>
         /// 
         /// </summary>
-        
+
         /// <param name="body">Shutdown body</param>
         /// <response code="200">Ok</response>
         [HttpPost]
@@ -107,7 +107,7 @@ namespace IO.Swagger.Controllers
         [ValidateModelState]
         [SwaggerOperation("ShutdownPost")]
         public virtual IActionResult ShutdownPost([FromBody]Object body)
-        {
+        { 
             return Ok();
         }
     }

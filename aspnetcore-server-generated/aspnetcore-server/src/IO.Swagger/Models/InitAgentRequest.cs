@@ -39,7 +39,7 @@ namespace IO.Swagger.Models
         /// </summary>
 
         [DataMember(Name="game_type")]
-        public int? GameType { get; set; }
+        public GameType GameType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

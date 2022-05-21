@@ -10,13 +10,18 @@
 
 using System;
 using System.IO;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using IO.Swagger.Filters;
 
 
@@ -29,13 +34,17 @@ namespace IO.Swagger
     {
         private readonly IWebHostEnvironment _hostingEnv;
 
+        private IConfiguration Configuration { get; }
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="env"></param>
-        public Startup(IWebHostEnvironment env)
+        /// <param name="configuration"></param>
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             _hostingEnv = env;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -72,7 +81,8 @@ namespace IO.Swagger
                            Name = "Swagger Codegen Contributors",
                            Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
                            Email = ""
-                        }
+                        },
+                        TermsOfService = new Uri("")
                     });
                     c.CustomSchemaIds(type => type.FullName);
                     c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
@@ -88,7 +98,8 @@ namespace IO.Swagger
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="loggerFactory"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseRouting();
 
