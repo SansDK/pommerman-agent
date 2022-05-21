@@ -33,25 +33,25 @@ namespace IO.Swagger.Models
             /// Enum _0Enum for 0
             /// </summary>
 
-            _0Enum = 0,
+            Win = 0,
 
             /// <summary>
             /// Enum _1Enum for 1
             /// </summary>
 
-            _1Enum = 1,
+            Loss = 1,
 
             /// <summary>
             /// Enum _2Enum for 2
             /// </summary>
 
-            _2Enum = 2,
+            Tie = 2,
 
             /// <summary>
             /// Enum _3Enum for 3
             /// </summary>
 
-            _3Enum = 3
+            Incomplete = 3
         }
 
         /// <summary>

@@ -33,37 +33,37 @@ namespace IO.Swagger.Models
             /// Enum _0Enum for 0
             /// </summary>
 
-            _0Enum = 0,
+            Stop = 0,
 
             /// <summary>
             /// Enum _1Enum for 1
             /// </summary>
 
-            _1Enum = 1,
+            Up = 1,
 
             /// <summary>
             /// Enum _2Enum for 2
             /// </summary>
 
-            _2Enum = 2,
+            Down = 2,
 
             /// <summary>
             /// Enum _3Enum for 3
             /// </summary>
 
-            _3Enum = 3,
+            Left = 3,
 
             /// <summary>
             /// Enum _4Enum for 4
             /// </summary>
 
-            _4Enum = 4,
+            Right = 4,
 
             /// <summary>
             /// Enum _5Enum for 5
             /// </summary>
 
-            _5Enum = 5
+            Bomb = 5
         }
 
         /// <summary>

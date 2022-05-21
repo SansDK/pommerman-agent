@@ -24,24 +24,24 @@ namespace IO.Swagger.Models
         /// Enum _1Enum for 1
         /// </summary>
         [EnumMember(Value = "1")]
-        _1Enum = 1,
+        FFA = 1,
 
         /// <summary>
         /// Enum _2Enum for 2
         /// </summary>
         [EnumMember(Value = "2")]
-        _2Enum = 2,
+        Team = 2,
 
         /// <summary>
         /// Enum _3Enum for 3
         /// </summary>
         [EnumMember(Value = "3")]
-        _3Enum = 3,
+        TeamRadio = 3,
 
         /// <summary>
         /// Enum _4Enum for 4
         /// </summary>
         [EnumMember(Value = "4")]
-        _4Enum = 4
+        OneVsOne = 4
     }
 }

@@ -27,7 +27,7 @@ namespace IO.Swagger.Models
         /// </summary>
         [Required]
         [DataMember(Name = "obs")]
-        public object Obs { get; set; }
+        public Obs Obs { get; set; }
 
         /// <summary>
         /// Gets or Sets ActionSpace
