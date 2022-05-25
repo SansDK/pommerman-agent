@@ -13,6 +13,7 @@ using IO.Swagger.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.IO;
 using static IO.Swagger.Models.ActionResponse;
 
 namespace IO.Swagger.Controllers
@@ -36,15 +37,27 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(ActionResponse), description: "The action to take")]
         public virtual IActionResult ActionPost([FromBody] ActionRequest state)
         {
-            var options = Enum.GetValues<ActionEnum>();
-            var action = (ActionEnum)options.GetValue(new Random().Next(options.Length));
+            // Demonstration of how to access persistent storage
+            WriteToFile(state.Obs.StepCount);
 
+            // Pick a random action
+            var possibleActions = Enum.GetValues<ActionEnum>();
+            var action = (ActionEnum)possibleActions.GetValue(new Random().Next(possibleActions.Length));
+
+            // Build and send the result
             var result = new ActionResponse()
             {
                 Action = action
             };
-            
             return new ObjectResult(result);
+        }
+
+        private static void WriteToFile(int content)
+        {
+            Directory.CreateDirectory("/data");
+            using StreamWriter outputFile = new("/data/some-file.txt");
+
+            outputFile.WriteLine(content);
         }
 
         /// <summary>
